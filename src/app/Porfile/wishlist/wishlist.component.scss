@@ -1,0 +1,473 @@
+// Variables
+$primary-color: #0066cc;
+$primary-light: #4d94ff;
+$primary-dark: #004c99;
+$text-color: #333333;
+$text-light: #666666;
+$background-color: #ffffff;
+$border-color: #e6e6e6;
+$hover-bg: #f5f8ff;
+$error-color: #ef4444;
+$success-color: #22c55e;
+
+// Social Colors
+$facebook: #1877f2;
+$twitter: #1da1f2;
+$whatsapp: #25d366;
+$email: #ea4335;
+
+// Mixins
+@mixin transition($property: all, $duration: 0.3s, $timing: ease) {
+  transition: $property $duration $timing;
+}
+
+@mixin card {
+  background-color: $background-color;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+}
+
+// Wishlist Styles
+.wishlist-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  font-family: 'Inter', sans-serif;
+  color: $text-color;
+}
+
+.wishlist-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+  
+  .wishlist-title-section {
+    .wishlist-title {
+      font-size: 1.75rem;
+      font-weight: 600;
+      margin: 0 0 0.5rem;
+    }
+    
+    .wishlist-subtitle {
+      color: $text-light;
+      font-size: 1rem;
+      margin: 0;
+    }
+  }
+  
+  .wishlist-actions {
+    position: relative;
+    
+    .btn-share {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.25rem;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      background-color: $hover-bg;
+      color: $primary-color;
+      border: none;
+      cursor: pointer;
+      @include transition;
+      
+      &:hover {
+        background-color: darken($hover-bg, 3%);
+      }
+      
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+}
+
+// Share Modal
+.wishlist-share-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  @include transition;
+  
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .modal-content {
+    width: 90%;
+    max-width: 500px;
+    background-color: $background-color;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid $border-color;
+      
+      .modal-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin: 0;
+      }
+      
+      .modal-close {
+        background: none;
+        border: none;
+        color: $text-light;
+        cursor: pointer;
+        @include transition;
+        
+        &:hover {
+          color: $text-color;
+        }
+        
+        svg {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+    
+    .modal-body {
+      padding: 1.5rem;
+      
+      .share-text {
+        margin: 0 0 1.25rem;
+        font-size: 0.95rem;
+        color: $text-light;
+      }
+      
+      .share-link-container {
+        display: flex;
+        margin-bottom: 1.5rem;
+        
+        .share-link-input {
+          flex: 1;
+          padding: 0.75rem 1rem;
+          border: 1px solid $border-color;
+          border-right: none;
+          border-radius: 6px 0 0 6px;
+          font-size: 0.9rem;
+          
+          &:focus {
+            outline: none;
+            border-color: $primary-color;
+          }
+        }
+        
+        .copy-link-button {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.75rem 1.25rem;
+          background-color: $primary-color;
+          color: white;
+          border: none;
+          border-radius: 0 6px 6px 0;
+          font-weight: 500;
+          cursor: pointer;
+          @include transition;
+          
+          &:hover {
+            background-color: $primary-dark;
+          }
+          
+          svg {
+            width: 18px;
+            height: 18px;
+          }
+        }
+      }
+      
+      .social-share {
+        .social-share-label {
+          font-size: 0.9rem;
+          color: $text-light;
+          margin: 0 0 1rem;
+          text-align: center;
+        }
+        
+        .social-buttons {
+          display: flex;
+          justify-content: center;
+          gap: 1rem;
+          
+          .social-button {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+            color: white;
+            @include transition;
+            
+            svg {
+              width: 20px;
+              height: 20px;
+            }
+            
+            &.facebook {
+              background-color: $facebook;
+              
+              &:hover {
+                background-color: darken($facebook, 10%);
+              }
+            }
+            
+            &.twitter {
+              background-color: $twitter;
+              
+              &:hover {
+                background-color: darken($twitter, 10%);
+              }
+            }
+            
+            &.whatsapp {
+              background-color: $whatsapp;
+              
+              &:hover {
+                background-color: darken($whatsapp, 10%);
+              }
+            }
+            
+            &.email {
+              background-color: $email;
+              
+              &:hover {
+                background-color: darken($email, 10%);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Empty Wishlist
+.wishlist-empty {
+  @include card;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem 1.5rem;
+  text-align: center;
+  
+  .empty-icon {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $hover-bg;
+    color: $primary-color;
+    border-radius: 50%;
+    margin-bottom: 1.5rem;
+    
+    svg {
+      width: 40px;
+      height: 40px;
+    }
+  }
+  
+  .empty-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 0 0.75rem;
+  }
+  
+  .empty-text {
+    color: $text-light;
+    margin: 0 0 1.5rem;
+    max-width: 400px;
+  }
+  
+  .btn-primary {
+    padding: 0.75rem 1.5rem;
+    background-color: $primary-color;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    @include transition;
+    
+    &:hover {
+      background-color: $primary-dark;
+    }
+  }
+}
+
+// Wishlist Grid
+.wishlist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  
+  .wishlist-item {
+    @include card;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    
+    .remove-button {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.9);
+      border: 1px solid $border-color;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $text-light;
+      cursor: pointer;
+      z-index: 1;
+      @include transition;
+      
+      &:hover {
+        color: $error-color;
+        border-color: $error-color;
+      }
+      
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+    
+    .item-image {
+      height: 200px;
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    
+    .item-details {
+      flex: 1;
+      margin-bottom: 1.25rem;
+      
+      .item-name {
+        font-size: 1.1rem;
+        font-weight: 500;
+        margin: 0 0 0.5rem;
+      }
+      
+      .item-price {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: $primary-color;
+        margin: 0 0 0.75rem;
+      }
+      
+      .item-stock {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.85rem;
+        
+        .stock-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+        }
+        
+        &.in-stock {
+          color: $success-color;
+          
+          .stock-dot {
+            background-color: $success-color;
+          }
+        }
+        
+        &.out-of-stock {
+          color: $error-color;
+          
+          .stock-dot {
+            background-color: $error-color;
+          }
+        }
+      }
+    }
+    
+    .item-actions {
+      .btn-primary {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        background-color: $primary-color;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-weight: 500;
+        cursor: pointer;
+        @include transition;
+        
+        &:hover:not(:disabled) {
+          background-color: $primary-dark;
+        }
+        
+        &:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+        
+        svg {
+          width: 18px;
+          height: 18px;
+        }
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 576px) {
+  .wishlist-header {
+    flex-direction: column;
+    align-items: flex-start;
+    
+    .wishlist-actions {
+      width: 100%;
+      
+      .btn-share {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  }
+}

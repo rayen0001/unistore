@@ -1,0 +1,275 @@
+// Variables
+$primary-color: #0066cc;
+$primary-light: #4d94ff;
+$primary-dark: #004c99;
+$text-color: #333333;
+$text-light: #666666;
+$background-color: #ffffff;
+$border-color: #e6e6e6;
+$hover-bg: #f5f8ff;
+$active-bg: #e6f0ff;
+
+// Mixins
+@mixin transition($property: all, $duration: 0.3s, $timing: ease) {
+  transition: $property $duration $timing;
+}
+
+@mixin card {
+  background-color: $background-color;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+}
+
+// Account Styles
+.account-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  font-family: 'Inter', sans-serif;
+  color: $text-color;
+}
+
+.account-header {
+  margin-bottom: 2rem;
+  
+  .account-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem;
+  }
+  
+  .account-subtitle {
+    color: $text-light;
+    font-size: 1rem;
+    margin: 0;
+  }
+}
+
+.account-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  
+  @media (min-width: 768px) {
+    grid-template-columns: 280px 1fr;
+  }
+}
+
+.account-sidebar {
+  @include card;
+  
+  .account-user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid $border-color;
+    
+    .account-avatar {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-bottom: 1rem;
+      overflow: hidden;
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      
+      .account-avatar-edit {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background-color: $primary-color;
+        color: white;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        @include transition;
+        
+        &:hover {
+          background-color: $primary-dark;
+        }
+        
+        svg {
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+    
+    .account-name {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 0 0 0.25rem;
+    }
+    
+    .account-email {
+      color: $text-light;
+      font-size: 0.9rem;
+      margin: 0 0 0.5rem;
+    }
+    
+    .account-member-since {
+      font-size: 0.8rem;
+      color: $text-light;
+      margin: 0;
+    }
+  }
+  
+  .account-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    
+    .account-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      color: $text-color;
+      text-decoration: none;
+      font-size: 0.95rem;
+      @include transition;
+      
+      &:hover {
+        background-color: $hover-bg;
+      }
+      
+      &.active {
+        background-color: $active-bg;
+        color: $primary-color;
+        font-weight: 500;
+        
+        .account-nav-icon {
+          color: $primary-color;
+        }
+      }
+      
+      .account-nav-icon {
+        width: 20px;
+        height: 20px;
+        color: $text-light;
+        @include transition;
+      }
+    }
+  }
+}
+
+.account-sections {
+  @include card;
+  
+  .account-section {
+    display: none;
+    
+    &.active {
+      display: block;
+    }
+    
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 0 0 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid $border-color;
+    }
+  }
+}
+
+// Form Styles
+.account-form {
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    
+    @media (min-width: 576px) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  .form-group {
+    margin-bottom: 1.25rem;
+    
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid $border-color;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      @include transition;
+      
+      &:focus {
+        outline: none;
+        border-color: $primary-color;
+        box-shadow: 0 0 0 2px rgba($primary-color, 0.1);
+      }
+    }
+  }
+  
+  .form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    
+    button {
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      @include transition;
+      
+      &.btn-primary {
+        background-color: $primary-color;
+        color: white;
+        border: none;
+        
+        &:hover {
+          background-color: $primary-dark;
+        }
+      }
+      
+      &.btn-secondary {
+        background-color: transparent;
+        color: $text-color;
+        border: 1px solid $border-color;
+        
+        &:hover {
+          background-color: $hover-bg;
+        }
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 576px) {
+  .account-form {
+    .form-actions {
+      flex-direction: column;
+      
+      button {
+        width: 100%;
+      }
+    }
+  }
+}

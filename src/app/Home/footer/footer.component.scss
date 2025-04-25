@@ -1,0 +1,292 @@
+// Variables
+$primary-color: #0066cc;
+$primary-light: #4d94ff;
+$primary-dark: #004c99;
+$text-color: #333333;
+$text-light: #666666;
+$background-color: #ffffff;
+$border-color: #e6e6e6;
+
+// Mixins
+@mixin transition($property: all, $duration: 0.3s, $timing: ease) {
+  transition: $property $duration $timing;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// Footer Styles
+.footer {
+  background-color: $background-color;
+  color: $text-color;
+  font-family: 'Inter', sans-serif;
+  border-top: 1px solid $border-color;
+  padding-top: 4rem;
+  
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  
+  &__top {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    
+    @media (min-width: 768px) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  &__brand {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  &__logo {
+    max-width: 160px;
+    height: auto;
+  }
+  
+  &__tagline {
+    color: $text-light;
+    font-size: 0.9rem;
+    max-width: 80%;
+  }
+  
+  &__newsletter {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  &__heading {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: $text-color;
+  }
+  
+  .newsletter-form {
+    display: flex;
+    gap: 0.5rem;
+    
+    &__input {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      border: 1px solid $border-color;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      outline: none;
+      
+      &:focus {
+        border-color: $primary-color;
+        box-shadow: 0 0 0 2px rgba($primary-color, 0.1);
+      }
+    }
+    
+    &__button {
+      background-color: $primary-color;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 0.75rem 1.25rem;
+      font-weight: 500;
+      cursor: pointer;
+      @include transition;
+      
+      &:hover {
+        background-color: $primary-dark;
+      }
+      
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba($primary-color, 0.3);
+      }
+    }
+  }
+  
+  &__links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+  
+  &__column {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  &__link {
+    color: $text-light;
+    text-decoration: none;
+    font-size: 0.9rem;
+    @include transition;
+    
+    &:hover {
+      color: $primary-color;
+    }
+  }
+  
+  &__social {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    
+    &-link {
+      @include flex-center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: rgba($primary-color, 0.1);
+      color: $primary-color;
+      @include transition;
+      
+      &:hover {
+        background-color: $primary-color;
+        color: white;
+      }
+    }
+    
+    &-icon {
+      width: 18px;
+      height: 18px;
+    }
+  }
+  
+  &__contact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    
+    &-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      color: $text-light;
+      margin: 0;
+    }
+    
+    &-icon {
+      width: 18px;
+      height: 18px;
+      color: $primary-color;
+    }
+  }
+  
+  &__bottom {
+    border-top: 1px solid $border-color;
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    
+    @media (min-width: 768px) {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+  
+  &__payment {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    
+    &-label {
+      font-size: 0.85rem;
+      color: $text-light;
+    }
+    
+    &-icons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    &-icon {
+      height: 24px;
+      width: auto;
+    }
+  }
+  
+  &__legal {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    
+    &-links {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    
+    &-link {
+      color: $text-light;
+      text-decoration: none;
+      font-size: 0.85rem;
+      @include transition;
+      
+      &:hover {
+        color: $primary-color;
+      }
+    }
+  }
+  
+  &__copyright {
+    font-size: 0.85rem;
+    color: $text-light;
+    margin: 0;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 576px) {
+  .footer {
+    padding-top: 2.5rem;
+    
+    &__links {
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    &__bottom {
+      text-align: center;
+    }
+    
+    &__payment {
+      align-items: center;
+    }
+    
+    &__legal {
+      align-items: center;
+      
+      &-links {
+        justify-content: center;
+      }
+    }
+  }
+}

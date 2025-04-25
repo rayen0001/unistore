@@ -1,0 +1,64 @@
+<section class="products-showcase">
+  <!-- First Row: 3 Products -->
+  <div class="row row-first">
+    <div class="product-card" *ngFor="let product of firstRow; let i = index" 
+         [attr.data-index]="i">
+      <div class="card-inner">
+        <div class="product-image">
+          <div class="image-wrapper">
+            <img [src]="product.image" [alt]="product.name">
+          </div>
+          <div class="product-overlay">
+            <button class="view-button">View</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <h3 class="product-name">{{ product.name }}</h3>
+          <p class="product-price">${{ product.price }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Second Row: 2 Products (Featured) -->
+  <div class="row row-second">
+    <div class="product-card featured" *ngFor="let product of secondRow; let i = index"
+         [attr.data-index]="i">
+      <div class="card-inner">
+        <div class="product-image">
+          <div class="image-wrapper">
+            <img [src]="product.image" [alt]="product.name">
+          </div>
+          <div class="product-overlay">
+            <button class="view-button">View</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <h3 class="product-name">{{ product.name }}</h3>
+          <p class="product-price">${{ product.price }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Third Row: 3 Products -->
+  <div class="row row-third">
+    <div class="product-card" *ngFor="let product of thirdRow; let i = index"
+         [attr.data-index]="i">
+      <div class="card-inner">
+        <div class="product-image">
+          <div class="image-wrapper">
+            <img [src]="product.image" [alt]="product.name">
+          </div>
+          <div class="product-overlay">
+            <button class="view-button">View</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <h3 class="product-name">{{ product.name }}</h3>
+          <p class="product-price">${{ product.price }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,219 @@
+<div class="orders-container">
+    <div class="orders-header">
+      <h1 class="orders-title">My Orders</h1>
+      <p class="orders-subtitle">Track and manage your purchase history</p>
+    </div>
+  
+    <div class="orders-filters">
+      <div class="search-box">
+        <input type="text" placeholder="Search orders..." class="search-input">
+        <button class="search-button" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+      
+      <div class="filter-group">
+        <label for="time-filter">Time Period</label>
+        <select id="time-filter" class="filter-select">
+          <option value="all">All Orders</option>
+          <option value="last-month">Last Month</option>
+          <option value="last-3-months">Last 3 Months</option>
+          <option value="last-6-months">Last 6 Months</option>
+          <option value="last-year">Last Year</option>
+        </select>
+      </div>
+      
+      <div class="filter-group">
+        <label for="status-filter">Status</label>
+        <select id="status-filter" class="filter-select">
+          <option value="all">All Statuses</option>
+          <option value="processing">Processing</option>
+          <option value="shipped">Shipped</option>
+          <option value="delivered">Delivered</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+      </div>
+    </div>
+  
+    <div class="orders-list">
+      <!-- Order Item 1 -->
+      <div class="order-item">
+        <div class="order-header">
+          <div class="order-info">
+            <div class="order-number">
+              <span class="label">Order #:</span>
+              <span class="value">ORD-2025-8742</span>
+            </div>
+            <div class="order-date">
+              <span class="label">Placed on:</span>
+              <span class="value">March 15, 2025</span>
+            </div>
+          </div>
+          <div class="order-status delivered">
+            <span class="status-dot"></span>
+            <span class="status-text">Delivered</span>
+          </div>
+        </div>
+        
+        <div class="order-products">
+          <div class="product-item">
+            <div class="product-image">
+              <img src="/placeholder.svg?height=80&width=80" alt="Product 1">
+            </div>
+            <div class="product-details">
+              <h3 class="product-name">Premium Wireless Headphones</h3>
+              <p class="product-variant">Color: Black | Size: Standard</p>
+              <p class="product-price">$129.99 × 1</p>
+            </div>
+          </div>
+          <div class="product-item">
+            <div class="product-image">
+              <img src="/placeholder.svg?height=80&width=80" alt="Product 2">
+            </div>
+            <div class="product-details">
+              <h3 class="product-name">Smart Watch Series 5</h3>
+              <p class="product-variant">Color: Silver | Size: 44mm</p>
+              <p class="product-price">$249.99 × 1</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="order-footer">
+          <div class="order-total">
+            <span class="label">Total:</span>
+            <span class="value">$379.98</span>
+          </div>
+          <div class="order-actions">
+            <button class="btn-secondary">Track Order</button>
+            <button class="btn-primary">View Details</button>
+            <button class="btn-outline">Buy Again</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Order Item 2 -->
+      <div class="order-item">
+        <div class="order-header">
+          <div class="order-info">
+            <div class="order-number">
+              <span class="label">Order #:</span>
+              <span class="value">ORD-2025-7391</span>
+            </div>
+            <div class="order-date">
+              <span class="label">Placed on:</span>
+              <span class="value">February 28, 2025</span>
+            </div>
+          </div>
+          <div class="order-status shipped">
+            <span class="status-dot"></span>
+            <span class="status-text">Shipped</span>
+          </div>
+        </div>
+        
+        <div class="order-products">
+          <div class="product-item">
+            <div class="product-image">
+              <img src="/placeholder.svg?height=80&width=80" alt="Product 3">
+            </div>
+            <div class="product-details">
+              <h3 class="product-name">Ergonomic Office Chair</h3>
+              <p class="product-variant">Color: Gray</p>
+              <p class="product-price">$199.99 × 1</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="order-footer">
+          <div class="order-total">
+            <span class="label">Total:</span>
+            <span class="value">$199.99</span>
+          </div>
+          <div class="order-actions">
+            <button class="btn-secondary">Track Order</button>
+            <button class="btn-primary">View Details</button>
+            <button class="btn-outline">Buy Again</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Order Item 3 -->
+      <div class="order-item">
+        <div class="order-header">
+          <div class="order-info">
+            <div class="order-number">
+              <span class="label">Order #:</span>
+              <span class="value">ORD-2025-6254</span>
+            </div>
+            <div class="order-date">
+              <span class="label">Placed on:</span>
+              <span class="value">January 12, 2025</span>
+            </div>
+          </div>
+          <div class="order-status processing">
+            <span class="status-dot"></span>
+            <span class="status-text">Processing</span>
+          </div>
+        </div>
+        
+        <div class="order-products">
+          <div class="product-item">
+            <div class="product-image">
+              <img src="/placeholder.svg?height=80&width=80" alt="Product 4">
+            </div>
+            <div class="product-details">
+              <h3 class="product-name">Smartphone Holder Stand</h3>
+              <p class="product-variant">Color: White</p>
+              <p class="product-price">$24.99 × 2</p>
+            </div>
+          </div>
+          <div class="product-item">
+            <div class="product-image">
+              <img src="/placeholder.svg?height=80&width=80" alt="Product 5">
+            </div>
+            <div class="product-details">
+              <h3 class="product-name">USB-C Fast Charging Cable</h3>
+              <p class="product-variant">Length: 2m</p>
+              <p class="product-price">$19.99 × 3</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="order-footer">
+          <div class="order-total">
+            <span class="label">Total:</span>
+            <span class="value">$109.95</span>
+          </div>
+          <div class="order-actions">
+            <button class="btn-secondary">Track Order</button>
+            <button class="btn-primary">View Details</button>
+            <button class="btn-outline">Buy Again</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="orders-pagination">
+      <button class="pagination-prev" disabled>
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Previous
+      </button>
+      <div class="pagination-pages">
+        <button class="pagination-page active">1</button>
+        <button class="pagination-page">2</button>
+        <button class="pagination-page">3</button>
+        <span class="pagination-ellipsis">...</span>
+        <button class="pagination-page">10</button>
+      </div>
+      <button class="pagination-next">
+        Next
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>

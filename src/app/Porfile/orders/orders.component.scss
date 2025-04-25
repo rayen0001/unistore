@@ -1,0 +1,442 @@
+// Variables
+$primary-color: #0066cc;
+$primary-light: #4d94ff;
+$primary-dark: #004c99;
+$text-color: #333333;
+$text-light: #666666;
+$background-color: #ffffff;
+$border-color: #e6e6e6;
+$hover-bg: #f5f8ff;
+
+// Status Colors
+$status-delivered: #22c55e;
+$status-shipped: #3b82f6;
+$status-processing: #f59e0b;
+$status-cancelled: #ef4444;
+
+// Mixins
+@mixin transition($property: all, $duration: 0.3s, $timing: ease) {
+  transition: $property $duration $timing;
+}
+
+@mixin card {
+  background-color: $background-color;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+}
+
+// Orders Styles
+.orders-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  font-family: 'Inter', sans-serif;
+  color: $text-color;
+}
+
+.orders-header {
+  margin-bottom: 2rem;
+  
+  .orders-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem;
+  }
+  
+  .orders-subtitle {
+    color: $text-light;
+    font-size: 1rem;
+    margin: 0;
+  }
+}
+
+.orders-filters {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr auto auto;
+    align-items: end;
+  }
+  
+  .search-box {
+    position: relative;
+    
+    .search-input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      padding-right: 3rem;
+      border: 1px solid $border-color;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      @include transition;
+      
+      &:focus {
+        outline: none;
+        border-color: $primary-color;
+        box-shadow: 0 0 0 2px rgba($primary-color, 0.1);
+      }
+    }
+    
+    .search-button {
+      position: absolute;
+      right: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: $text-light;
+      cursor: pointer;
+      @include transition;
+      
+      &:hover {
+        color: $primary-color;
+      }
+      
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+  
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    
+    label {
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+    
+    .filter-select {
+      min-width: 160px;
+      padding: 0.75rem 1rem;
+      border: 1px solid $border-color;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      background-color: $background-color;
+      cursor: pointer;
+      @include transition;
+      
+      &:focus {
+        outline: none;
+        border-color: $primary-color;
+        box-shadow: 0 0 0 2px rgba($primary-color, 0.1);
+      }
+    }
+  }
+}
+
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  
+  .order-item {
+    @include card;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    
+    .order-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid $border-color;
+      
+      .order-info {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        
+        .order-number, .order-date {
+          display: flex;
+          flex-direction: column;
+          gap: 0.25rem;
+          
+          .label {
+            font-size: 0.85rem;
+            color: $text-light;
+          }
+          
+          .value {
+            font-weight: 500;
+          }
+        }
+      }
+      
+      .order-status {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 500;
+        font-size: 0.95rem;
+        
+        .status-dot {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+        }
+        
+        &.delivered {
+          color: $status-delivered;
+          
+          .status-dot {
+            background-color: $status-delivered;
+          }
+        }
+        
+        &.shipped {
+          color: $status-shipped;
+          
+          .status-dot {
+            background-color: $status-shipped;
+          }
+        }
+        
+        &.processing {
+          color: $status-processing;
+          
+          .status-dot {
+            background-color: $status-processing;
+          }
+        }
+        
+        &.cancelled {
+          color: $status-cancelled;
+          
+          .status-dot {
+            background-color: $status-cancelled;
+          }
+        }
+      }
+    }
+    
+    .order-products {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      
+      .product-item {
+        display: flex;
+        gap: 1rem;
+        
+        .product-image {
+          width: 80px;
+          height: 80px;
+          flex-shrink: 0;
+          border-radius: 6px;
+          overflow: hidden;
+          
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+        
+        .product-details {
+          flex: 1;
+          
+          .product-name {
+            font-size: 1rem;
+            font-weight: 500;
+            margin: 0 0 0.25rem;
+          }
+          
+          .product-variant {
+            font-size: 0.85rem;
+            color: $text-light;
+            margin: 0 0 0.25rem;
+          }
+          
+          .product-price {
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin: 0;
+          }
+        }
+      }
+    }
+    
+    .order-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid $border-color;
+      
+      .order-total {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        
+        .label {
+          font-size: 0.95rem;
+          font-weight: 500;
+        }
+        
+        .value {
+          font-size: 1.1rem;
+          font-weight: 600;
+          color: $primary-color;
+        }
+      }
+      
+      .order-actions {
+        display: flex;
+        gap: 0.75rem;
+        
+        button {
+          padding: 0.6rem 1rem;
+          border-radius: 6px;
+          font-size: 0.9rem;
+          font-weight: 500;
+          cursor: pointer;
+          @include transition;
+          
+          &.btn-primary {
+            background-color: $primary-color;
+            color: white;
+            border: none;
+            
+            &:hover {
+              background-color: $primary-dark;
+            }
+          }
+          
+          &.btn-secondary {
+            background-color: $hover-bg;
+            color: $primary-color;
+            border: none;
+            
+            &:hover {
+              background-color: darken($hover-bg, 3%);
+            }
+          }
+          
+          &.btn-outline {
+            background-color: transparent;
+            color: $text-color;
+            border: 1px solid $border-color;
+            
+            &:hover {
+              background-color: $hover-bg;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.orders-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  .pagination-prev, .pagination-next {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    background-color: transparent;
+    color: $text-color;
+    border: 1px solid $border-color;
+    cursor: pointer;
+    @include transition;
+    
+    &:hover:not(:disabled) {
+      background-color: $hover-bg;
+    }
+    
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+  
+  .pagination-pages {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    
+    .pagination-page {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      background-color: transparent;
+      color: $text-color;
+      border: 1px solid transparent;
+      cursor: pointer;
+      @include transition;
+      
+      &:hover:not(.active) {
+        border-color: $border-color;
+      }
+      
+      &.active {
+        background-color: $primary-color;
+        color: white;
+      }
+    }
+    
+    .pagination-ellipsis {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      color: $text-light;
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 576px) {
+  .order-footer {
+    .order-actions {
+      flex-direction: column;
+      width: 100%;
+      
+      button {
+        width: 100%;
+      }
+    }
+  }
+  
+  .orders-pagination {
+    flex-direction: column;
+    gap: 1rem;
+    
+    .pagination-prev, .pagination-next {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+}

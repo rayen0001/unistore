@@ -1,0 +1,18 @@
+<div class="vendor-slider-container">
+    <div class="vendor-slider-wrapper">
+      <div class="vendor-slider-track">
+        <div class="vendor-slide" *ngFor="let vendor of topVendors">
+          <img [src]="vendor.logo" alt="vendor.logo">
+          <h4>{{ vendor.name }}</h4>
+          <p>{{ vendor.description }}</p>
+        </div>
+        <!-- Repeat the vendors to create infinite loop effect -->
+        <div class="vendor-slide" *ngFor="let vendor of topVendors">
+          <img [src]="vendor.logo" alt="vendor.logo">
+          <h4>{{ vendor.name }}</h4>
+          <p>{{ vendor.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
