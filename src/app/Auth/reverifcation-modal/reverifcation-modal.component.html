@@ -1,0 +1,28 @@
+<div class="modal-overlay" *ngIf="isOpen" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="text-center">
+            <h3><i class="fa fa-check-circle fa-4x"></i></h3>
+            <h2 class="text-center">Not Verified ?</h2>
+            <p>You can get your verified here.</p>
+            <div class="panel-body">
+              <form id="register-form" role="form" autocomplete="off" class="form" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
+                    <input id="email" name="email" placeholder="email address" class="form-control" type="email" [(ngModel)]="email">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input name="recover-submit" class="btn btn-lg btn-primary btn-block" value="Reset Password" type="submit">
+                </div>
+                <input type="hidden" class="hide" name="token" id="token" value="">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="close-button" (click)="closeModal()">×</button>
+    </div>
+  </div>

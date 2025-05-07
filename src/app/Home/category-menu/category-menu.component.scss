@@ -1,0 +1,118 @@
+$primary-blue: #0066cc;
+$text-dark: #333;
+$border-light: #eee;
+$shadow-light: 0 5px 15px rgba(0, 0, 0, 0.1);
+
+.category-menu-container {
+  width: 100%;
+  font-family: Arial, sans-serif;
+  position: relative;
+  box-shadow: $shadow-light;
+  .categories-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    position: relative;
+
+    .category-item {
+      padding: 10px 15px;
+      cursor: pointer;
+      position: relative;
+
+      .category-name {
+        font-weight: 500;
+        position: relative;
+        text-decoration: none;
+        color: $text-dark;
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -3px;
+          left: 0;
+          width: 0;
+          height: 2px;
+          background-color: $primary-blue;
+          transition: width 0.3s;
+        }
+      }
+
+      &:hover {
+        .category-name::after {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .subcategories-container {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100vw;
+    max-width: 100vw;
+    z-index: 100;
+    background-color: white;
+    box-shadow: $shadow-light;
+    padding: 20px;
+    border-radius: 4px;
+    max-height: calc(80vh - 100px);
+    overflow-y: auto;
+    transform: translateX(0);
+
+    .subcategory-columns {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+
+      .subcategory-column {
+        max-height: 80vh;
+        overflow-y: auto;
+
+        .subcategory-group-title {
+          font-weight: bold;
+          margin-bottom: 10px;
+          color: $primary-blue;
+          padding-bottom: 5px;
+          border-bottom: 1px solid $border-light;
+        }
+
+        .group-link {
+          text-decoration: none;
+          color: $primary-blue;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+
+        .subcategory-list,
+        .subcategory-chunk {
+          padding: 0;
+          margin: 0 0 10px 0;
+          list-style: none;
+        }
+
+        .subcategory-item {
+          padding: 5px 0;
+
+          a {
+            text-decoration: none;
+            color: $text-dark;
+            transition: color 0.2s;
+
+            &:hover {
+              color: $primary-blue;
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Global style
+body {
+  overflow-x: hidden;
+}

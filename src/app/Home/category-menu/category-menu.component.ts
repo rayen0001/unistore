@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-category-menu',
   imports: [CommonModule],
   templateUrl: './category-menu.component.html',
-  styleUrl: './category-menu.component.css'
+  styleUrl: './category-menu.component.scss'
 })
 export class CategoryMenuComponent implements OnInit {
   categories = [
@@ -199,13 +199,22 @@ export class CategoryMenuComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    // Detect if the screen is mobile-sized
+    this.isMobile = window.innerWidth <= 768;
+  
+    // Optional: Listen to window resize to update responsiveness dynamically
+    window.addEventListener('resize', () => {
+      this.isMobile = window.innerWidth <= 768;
+    });
+  
+    // Process categories and split items into chunks
     this.categories.forEach(category => {
       category.subCategoryGroups.forEach(group => {
-        // Split subcategories into groups of 10 items
         group.items = this.splitIntoChunks(group.items, 10);
       });
     });
   }
+  
 
   // Utility function to split an array into chunks of a given size
   splitIntoChunks(array: any[], chunkSize: number): any[] {
@@ -216,20 +225,45 @@ export class CategoryMenuComponent implements OnInit {
     return result;
   }
 
-  showSubCategories(category: any): void {
+  toggleSubCategories(category: any): void {
+    this.categories.forEach(cat => {
+      if (cat !== category) cat.isHovered = false;
+    });
+    category.isHovered = !category.isHovered;
+  }
+  
+
+
+  isMobile: boolean = false;
+
+
+
+onMouseEnter(category: any): void {
+  if (!this.isMobile) {
     category.isHovered = true;
   }
+}
 
-  hideSubCategories(category: any): void {
+onMouseLeave(category: any): void {
+  if (!this.isMobile) {
     category.isHovered = false;
   }
+}
 
-  navigateToItem(event: Event, item: string): void {
-    event.preventDefault();
-    // You can implement your navigation logic here
-    console.log('Navigating to:', item);
-    
-    // Example: Navigate using Angular Router
-    // this.router.navigate(['/category', item.toLowerCase().replace(/ /g, '-')]);
+onCategoryClick(category: any): void {
+  if (this.isMobile) {
+    // Toggle only on mobile
+    this.categories.forEach(cat => {
+      if (cat !== category) cat.isHovered = false;
+    });
+    category.isHovered = !category.isHovered;
   }
+}
+
+navigateToItem(event: Event, item: string): void {
+  event.preventDefault();
+  console.log('Navigating to item:', item);
+  // your logic here
+}
+
 }

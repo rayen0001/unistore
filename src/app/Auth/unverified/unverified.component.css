@@ -1,0 +1,104 @@
+/* General Styles */
+
+  
+  /* Verification Container */
+  .verification-container {
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 90dvw;
+        width: 100%;
+        min-height: 70dvh;
+        background-color: #fff;
+        overflow: hidden;
+        box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+        text-align: center;
+      }
+  
+  /* Header */
+  .verification-header h2 {
+    font-size: 24px;
+    color: #333333;
+    margin-bottom: 20px;
+    padding-top: 3dvh;
+  }
+  
+  /* Content */
+  .verification-content {
+    font-size: 16px;
+    color: #555555;
+    line-height: 1.6;
+  }
+  
+  .verification-content p {
+    margin: 10px 0;
+  }
+  
+  /* Verification Details */
+  .verification-details {
+    margin-top: 20px;
+    text-align: left;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+  }
+  
+  .verification-details p {
+    margin: 0 0 10px 0;
+    font-weight: bold;
+  }
+  
+  .verification-details ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .verification-details li {
+    margin: 10px 0;
+    font-size: 14px;
+  }
+  
+  .verification-details .email {
+    color: #007bff;
+    font-weight: bold;
+  }
+  
+  /* Resend Button */
+  .resend-button {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .resend-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 600px) {
+    .verification-container {
+      padding: 20px;
+    }
+  
+    .verification-header h2 {
+      font-size: 20px;
+    }
+  
+    .verification-content {
+      font-size: 14px;
+    }
+  
+    .resend-button {
+      width: 100%;
+      padding: 10px;
+    }
+  }

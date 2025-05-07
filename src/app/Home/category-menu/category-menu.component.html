@@ -1,38 +1,41 @@
 <div class="category-menu-container">
-    <div class="categories-wrapper">
-      <div 
-        *ngFor="let category of categories" 
-        class="category-item"
-        (mouseenter)="showSubCategories(category)"
-        (mouseleave)="hideSubCategories(category)"
-      >
-        <a href="#" class="category-name">{{ category.name }}</a>
-      </div>
+  <div class="categories-wrapper">
+    <div 
+      *ngFor="let category of categories" 
+      class="category-item"
+      (mouseenter)="onMouseEnter(category)" 
+      (mouseleave)="onMouseLeave(category)"
+      (click)="onCategoryClick(category)"
+    >
+      <a href="#" class="category-name">{{ category.name }}</a>
     </div>
-    
-    <ng-container *ngFor="let category of categories">
-      <div 
-        class="subcategories-container" 
-        *ngIf="category.isHovered" 
-        (mouseenter)="showSubCategories(category)" 
-        (mouseleave)="hideSubCategories(category)"
-      >
-        <div class="subcategory-columns">
-          <div class="subcategory-column" *ngFor="let group of category.subCategoryGroups">
-            <h4 class="subcategory-group-title">
-              <a href="#" class="group-link">{{ group.name }}</a>
-            </h4>
-            <ul class="subcategory-list">
-              <li *ngFor="let chunk of group.items">
-                <ul class="subcategory-chunk">
-                  <li *ngFor="let item of chunk" class="subcategory-item">
-                    <a href="#" (click)="navigateToItem($event, item)">{{ item }}</a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
+  </div>
+
+  <ng-container *ngFor="let category of categories">
+    <div 
+      class="subcategories-container" 
+      *ngIf="category.isHovered"
+      (mouseenter)="onMouseEnter(category)" 
+      (mouseleave)="onMouseLeave(category)"
+    >
+      <div class="subcategory-columns">
+        <div class="subcategory-column" *ngFor="let group of category.subCategoryGroups">
+          <h4 class="subcategory-group-title">
+            <a href="#" class="group-link">{{ group.name }}</a>
+          </h4>
+          <ul class="subcategory-list">
+            <li *ngFor="let chunk of group.items">
+              <ul class="subcategory-chunk">
+                <li *ngFor="let item of chunk" class="subcategory-item">
+                  <a href="#" (click)="navigateToItem($event, item)">
+                    {{ item }}
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
         </div>
       </div>
-    </ng-container>
-  </div>
+    </div>
+  </ng-container>
+</div>

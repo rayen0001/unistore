@@ -1,0 +1,54 @@
+<div class="product-detail-container">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="#">Home</a> &gt;
+      <a href="#">Products</a> &gt;
+      <span>{{ product.name }}</span>
+    </div>
+  
+    <div class="product-detail">
+      <!-- Product Images -->
+      <div class="product-images">
+        <div class="main-image">
+          <img [src]="product.imageUrl" [alt]="product.name">
+        </div>
+      </div>
+  
+      <!-- Product Info -->
+      <div class="product-info">
+        <h1 class="product-name">{{ product.name }}</h1>
+        <div class="product-price">${{ product.price.toFixed(2) }}</div>
+        
+        <p class="product-description">{{ product.description }}</p>
+        
+        <div class="quantity-selector">
+          <label>Quantity</label>
+          <div class="quantity-controls">
+            <button (click)="decreaseQuantity()">-</button>
+            <input type="number" [(ngModel)]="quantity" min="1" max="99">
+            <button (click)="increaseQuantity()">+</button>
+          </div>
+        </div>
+        
+        <div class="product-actions">
+          <button class="add-to-cart-btn">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Related Products -->
+    <div class="related-products">
+      <h2>You May Also Like</h2>
+      <div class="related-products-grid">
+        <div class="product-card" *ngFor="let product of relatedProducts">
+          <div class="product-image">
+            <img [src]="product.imageUrl" [alt]="product.name">
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">{{ product.name }}</h3>
+            <p class="product-price">${{ product.price.toFixed(2) }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

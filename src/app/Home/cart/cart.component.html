@@ -1,0 +1,27 @@
+<div class="cart" *ngIf="items.length">
+    <div class="cart-header">Your Cart</div>
+  
+    <div class="cart-item" *ngFor="let item of items">
+      <div class="item-info">
+        <img [src]="item.image" alt="Item" />
+        <div class="details">
+          <div class="title">{{ item.name }}</div>
+          <div class="price">${{ item.price }}</div>
+        </div>
+      </div>
+      <div class="quantity">
+        <input type="number" [(ngModel)]="item.quantity" min="1" />
+      </div>
+      <button class="remove-btn" (click)="removeItem(item.id)">&times;</button>
+    </div>
+  
+    <div class="cart-summary">
+      <div>Total:</div>
+      <div class="total">${{ total.toFixed(2) }}</div>
+    </div>
+  
+    <button class="checkout-btn">Proceed to Checkout</button>
+  </div>
+  
+  <div *ngIf="!items.length" class="empty-message">Your cart is empty.</div>
+  

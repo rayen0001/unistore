@@ -1,0 +1,345 @@
+// Variables
+$primary-color: #3498db;
+$secondary-color: #2c3e50;
+$text-color: #333;
+$light-gray: #f8f8f8;
+$border-color: #ddd;
+$badge-color: #e74c3c;
+$white: #ffffff;
+
+
+// Breakpoints
+$breakpoint-xs: 576px;
+$breakpoint-sm: 768px;
+$breakpoint-md: 992px;
+$breakpoint-lg: 1200px;
+
+// Mixins
+@mixin transition($property: all, $duration: 0.3s, $timing: ease) {
+  transition: $property $duration $timing;
+}
+
+@mixin flex($direction: row, $justify: flex-start, $align: center, $wrap: nowrap) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+  flex-wrap: $wrap;
+}
+
+// Header Styles
+.header {
+  width: 100%;
+  background-color: $white;
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  
+  .container {
+    width: 100%;
+    max-width: $breakpoint-lg;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+  
+  .header-wrapper {
+    @include flex(row, space-between, center, wrap);
+    padding: 15px 0;
+    gap: 10px;
+    
+    @media (max-width: $breakpoint-xs) {
+      padding: 15px 0 5px;
+    }
+  }
+  
+  // Logo Styles
+  .logo {
+    @include flex(row, flex-start, center);
+    flex-shrink: 0;
+    
+    a {
+      @include flex(row, flex-start, center);
+      text-decoration: none;
+      color: $text-color;
+      
+      img {
+        height: 40px;
+        margin-right: 10px;
+        
+        @media (max-width: $breakpoint-sm) {
+          height: 30px;
+        }
+        
+        @media (max-width: $breakpoint-xs) {
+          height: 25px;
+        }
+      }
+      
+      .store-name {
+        font-size: 1.5rem;
+        font-weight: bold;
+        
+        @media (max-width: $breakpoint-sm) {
+          font-size: 1.25rem;
+        }
+        
+        @media (max-width: $breakpoint-xs) {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+  
+  // Search Container Styles
+  .search-container {
+    flex: 1;
+    max-width: 500px;
+    margin: 0 20px;
+    
+    @media (max-width: $breakpoint-md) {
+      order: 3;
+      margin: 15px 0 0;
+      max-width: 100%;
+      flex-basis: 100%;
+    }
+    
+    @media (max-width: $breakpoint-xs) {
+      margin: 20px 0 10px;
+    }
+    
+    form {
+      @include flex(row, flex-start, center);
+      position: relative;
+      
+      .search-input {
+        width: 100%;
+        padding: 10px 15px;
+        border: 1px solid $border-color;
+        border-radius: 4px;
+        font-size: 1rem;
+        @include transition(border-color);
+        
+        &:focus {
+          outline: none;
+          border-color: $primary-color;
+        }
+        
+        @media (max-width: $breakpoint-xs) {
+          padding: 8px 40px 8px 15px;
+          font-size: 0.95rem;
+        }
+      }
+      
+      .search-button {
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        padding: 0 15px;
+        background: $light-gray;
+        border: 1px solid $border-color;
+        border-left: none;
+        border-radius: 0 4px 4px 0;
+        cursor: pointer;
+        @include transition(background);
+        
+        &:hover {
+          background: darken($light-gray, 5%);
+        }
+      }
+    }
+  }
+  
+  // Navigation Styles
+  .navigation {
+    @media (max-width: $breakpoint-xs) {
+      width: 100%;
+      order: 2;
+    }
+    
+    ul {
+      @include flex(row, flex-end, center, nowrap);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      
+      @media (max-width: $breakpoint-sm) {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 10px;
+      }
+      
+      @media (max-width: $breakpoint-xs) {
+        justify-content: space-around;
+        width: 100%;
+      }
+    }
+    
+    .nav-item {
+      position: relative;
+      margin-left: 20px;
+      
+      @media (max-width: $breakpoint-sm) {
+        margin-left: 15px;
+      }
+      
+      @media (max-width: $breakpoint-xs) {
+        margin-left: 0;
+      }
+      
+      .nav-link {
+        @include flex(row, flex-start, center);
+        text-decoration: none;
+        color: $text-color;
+        font-size: 1rem;
+        padding: 5px;
+        @include transition(color);
+        
+        &:hover {
+          color: $primary-color;
+        }
+        
+        fa-icon {
+          margin-right: 5px;
+          font-size: 1.1rem;
+          
+          @media (max-width: $breakpoint-xs) {
+            margin-right: 0;
+            font-size: 1.5rem;
+          }
+        }
+        
+        span {
+          @media (max-width: $breakpoint-xs) {
+            display: none;
+          }
+        }
+      }
+      
+      .badge {
+        display: inline-block;
+        background-color: $badge-color;
+        color: $white;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        line-height: 20px;
+        font-size: 0.75rem;
+        margin-left: 5px;
+        
+        @media (max-width: $breakpoint-xs) {
+          position: absolute;
+          top: -5px;
+          right: -5px;
+          width: 16px;
+          height: 16px;
+          line-height: 16px;
+          font-size: 0.7rem;
+          margin-left: 0;
+        }
+      }
+    }
+    
+    // Dropdown Styles
+    .dropdown {
+      &:hover .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+      
+      .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: $white;
+
+        border-radius: 4px;
+        min-width: 150px;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px);
+        z-index: 1001;
+        @include transition(all, 0.2s, ease-in-out);
+        
+        @media (max-width: $breakpoint-xs) {
+          right: -50%;
+          min-width: 120px;
+        }
+        
+        a {
+          display: block;
+          padding: 10px 15px;
+          text-decoration: none;
+          color: $text-color;
+          @include transition(background);
+          
+          &:hover {
+            background-color: $light-gray;
+            color: $primary-color;
+          }
+          
+          &:first-child {
+            border-radius: 4px 4px 0 0;
+          }
+          
+          &:last-child {
+            border-radius: 0 0 4px 4px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Mobile optimizations
+@media (max-width: 480px) {
+  .header {
+    .header-wrapper {
+      position: relative;
+      flex-direction: column;
+    }
+    
+    .logo {
+      margin-bottom: 15px;
+      
+      a {
+        .store-name {
+          font-size: 1.3rem;
+        }
+      }
+    }
+    
+    .navigation {
+      ul {
+        @include flex(row, space-around, center, nowrap); 
+        
+        width: 100%;
+        margin-bottom: 5px;
+      }
+      
+      .nav-item {
+        .nav-link {
+          fa-icon {
+            margin-right: 5px;
+            font-size: 1.6rem;
+          }
+        }
+      }
+      
+      .dropdown .dropdown-menu {
+        right: -70%;
+      }
+    }
+    
+    .search-container {
+      margin-top: 15px;
+      
+      .search-input {
+        height: 40px;
+      }
+    }
+  }
+}

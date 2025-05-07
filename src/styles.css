@@ -1,12 +1,53 @@
+
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 html, body {
-    overflow-x: hidden;
-    width: 100%;
     margin: 0;
     padding: 0;
-  }
-  
-  app-root {
-    display: block;
     width: 100%;
-    overflow-x: hidden;
+    height: 100%;
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: #f4f7fa;
   }
+  ::-webkit-scrollbar {
+    display: none;
+}
+html, body { height: 100%; }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* Success Snackbar */
+.success-snackbar {
+  background-color: #4CAF50 !important; /* Green */
+  color: white !important;
+}
+
+.error-snackbar {
+  background-color: #f44336 !important; /* Red */
+  color: white !important;
+}
+
+::ng-deep.warning-snackbar {
+  background-color: #ff9800 !important; /* Orange */
+  color: white !important;
+}
+
+
+/* Info Snackbar */
+.snackbar-info {
+  background-color: #17a2b8; /* Blue */
+  color: white;
+}
+.mat-mdc-snack-bar-container .mdc-snackbar__surface {
+  pointer-events:unset; 
+}
+
+
+.mat-mdc-snack-bar-container .mdc-snackbar__label {
+  pointer-events: auto; /* Allow text selection */
+}

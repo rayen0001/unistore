@@ -1,0 +1,44 @@
+<div class="verification-container">
+    <h2>{{ verificationMessage }}</h2>
+  
+    <form *ngIf="!isVerified" [formGroup]="verificationForm" (ngSubmit)="onSubmit()">
+      <input type="hidden" formControlName="token" />
+  
+      <!-- First Name -->
+      <div>
+        <input type="text" formControlName="firstname" placeholder="First Name" required />
+        <div *ngIf="verificationForm.get('firstname')?.invalid && verificationForm.get('firstname')?.touched" class="error-message">
+          Full Name is required.
+        </div>
+      </div>
+
+      <!-- Last Name -->
+      <div>
+        <input type="text" formControlName="lastname" placeholder="Last Name" required />
+        <div *ngIf="verificationForm.get('lastname')?.invalid && verificationForm.get('lastname')?.touched" class="error-message">
+          Full Name is required.
+        </div>
+      </div>
+
+      <!-- Phone -->
+      <div>
+        <input type="text" formControlName="phone" placeholder="Phone" required />
+        <div *ngIf="verificationForm.get('phone')?.invalid && verificationForm.get('phone')?.touched" class="error-message">
+          Phone is required.
+        </div>
+      </div>
+  
+      <!-- Address -->
+      <div>
+        <input type="text" formControlName="address" placeholder="Address" required />
+        <div *ngIf="verificationForm.get('address')?.invalid && verificationForm.get('address')?.touched" class="error-message">
+          Address is required.
+        </div>
+      </div>
+  
+
+  
+      <!-- Submit Button -->
+      <button type="submit" [disabled]="verificationForm.invalid">Verify & Submit</button>
+    </form>
+  </div>

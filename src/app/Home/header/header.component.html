@@ -34,16 +34,10 @@
           
           <!-- Profile -->
           <li class="nav-item dropdown">
-            <a href="javascript:void(0)" class="nav-link">
+            <a [routerLink]="['/profile']" class="nav-link">
               <fa-icon [icon]="faUser"></fa-icon>
               <span>Profile</span>
             </a>
-            <div class="dropdown-menu">
-              <a [routerLink]="['/account']">My Account</a>
-              <a [routerLink]="['/orders']">Orders</a>
-              <a [routerLink]="['/wishlist']">Wishlist</a>
-              <a [routerLink]="['/logout']">Logout</a>
-            </div>
           </li>
           
           <!-- Sign In/Up -->

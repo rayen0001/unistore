@@ -1,0 +1,17 @@
+<div class="verification-container">
+  <div class="verification-header">
+    <h2>Email Verification</h2>
+  </div>
+  <div class="verification-content">
+    <p>A verification email has been sent to your email address.</p>
+    <p>Please check your email and click on the verification link to activate your account.</p>
+    <p>If you did not receive the email, please check your spam folder or click the button below to resend the verification email.</p>
+    <div class="verification-details">
+      <p><strong>Verification Email Details:</strong></p>
+      <ul>
+        <li><strong>Email Address:</strong> <span class="email">{{ email }}</span></li>
+      </ul>
+    </div>
+    <button class="resend-button" (click)="resend()">Resend Verification Email</button>
+  </div>
+</div>
