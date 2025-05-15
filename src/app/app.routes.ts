@@ -11,8 +11,13 @@ import { ResetPasswordComponent } from './Auth/reset-password/reset-password.com
 import { UnverifiedComponent } from './Auth/unverified/unverified.component';
 import { VerificationComponent } from './Auth/verification/verification.component';
 import { CoreComponent } from './Porfile/core/core.component';
+import { ADMIN_ROUTES } from './admin/admin-routing';
+import { PaymentComponent } from './Products/payment/payment.component';
 
 export const routes: Routes = [
+  {path: 'admin', children: ADMIN_ROUTES},
+
+
   { path: '', component: HomeComponent },
   {
     path: 'profile',
@@ -24,8 +29,10 @@ export const routes: Routes = [
       { path: 'wishlist', component: WishlistComponent }
     ]
   },
-  { path: 'test', component: ProductDetailComponent },
-  { path: 'test1', component: ProductListingComponent },
+  { path: 'product/:id', component: ProductDetailComponent },
+  { path: 'products/:id', component: ProductListingComponent },
+  { path: 'products', component: ProductListingComponent },
+  { path: 'payment', component: PaymentComponent },
   { path: 'cart', component: CartComponent },
   { path: 'auth', component: AuthFormComponent },
   { path: 'verify', component: VerificationComponent },

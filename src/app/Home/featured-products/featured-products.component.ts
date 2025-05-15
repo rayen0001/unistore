@@ -1,10 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
+import { ProduitService } from '../../admin/content/pages/products/produit.service';
+import { Router } from '@angular/router';
+import { CartService } from '../../services/cart.service';
+
+interface ProductImage {
+  id:any
+  image_url: string;
+  is_primary: boolean;
+}
 
 interface Product {
+id: any;
   name: string;
-  price: number;
-  image: string;
+  Prix: number;
+  images: ProductImage[];
 }
 
 @Component({
@@ -19,58 +29,14 @@ export class FeaturedProductsComponent implements OnInit, AfterViewInit {
   firstRow: Product[] = [];
   secondRow: Product[] = [];
   thirdRow: Product[] = [];
-  
-  constructor(private elementRef: ElementRef) {}
+  allproducts:any
+  constructor(private elementRef: ElementRef,private productService:ProduitService,private router:Router,private cartService:CartService) {}
   
   ngOnInit(): void {
     // Initialize products
-    const allProducts: Product[] = [
-      { 
-        name: 'Premium Headphones', 
-        price: 249, 
-        image: 'https://placehold.co/500x500/?text=Headphones' 
-      },
-      { 
-        name: 'Smart Watch', 
-        price: 199, 
-        image: 'https://placehold.co/500x500/?text=Watch' 
-      },
-      { 
-        name: 'Leather Wallet', 
-        price: 89, 
-        image: 'https://placehold.co/500x500/?text=Wallet' 
-      },
-      { 
-        name: 'Designer Sunglasses', 
-        price: 179, 
-        image: 'https://placehold.co/500x500/?text=Sunglasses' 
-      },
-      { 
-        name: 'Wireless Earbuds', 
-        price: 149, 
-        image: 'https://placehold.co/500x500/?text=Earbuds' 
-      },
-      { 
-        name: 'Minimalist Backpack', 
-        price: 129, 
-        image: 'https://placehold.co/500x500/?text=Backpack' 
-      },
-      { 
-        name: 'Portable Speaker', 
-        price: 119, 
-        image: 'https://placehold.co/500x500/?text=Speaker' 
-      },
-      { 
-        name: 'Stylish Sneakers', 
-        price: 159, 
-        image: 'https://placehold.co/500x500/?text=Sneakers' 
-      }
-    ];
-    
-    // Split products into rows
-    this.firstRow = allProducts.slice(0, 3);
-    this.secondRow = allProducts.slice(3, 5);
-    this.thirdRow = allProducts.slice(5, 8);
+    this.getProduits()
+
+ 
   }
   
   ngAfterViewInit(): void {
@@ -116,4 +82,27 @@ export class FeaturedProductsComponent implements OnInit, AfterViewInit {
       });
     });
   }
+
+
+  getProduits(){
+    return this.productService.getProduits().subscribe({
+      next:(res)=>{console.log(res);
+      this.allproducts=res
+      },
+      error:(err)=>{console.log(err);
+      },
+      complete:()=>{   const allProducts: Product[] = this.allproducts;
+        // Split products into rows
+        this.firstRow = allProducts.slice(0, 3);
+        this.secondRow = allProducts.slice(3, 5);
+        this.thirdRow = allProducts.slice(5, 8);}
+    })
+  }
+
+  productDetail(event:any){
+    this.router.navigate(["/product/"+event.target.id])
+  }
+  addToCart(product:any){
+  this.cartService.addToCart(product)
+}
 }

@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ProduitService } from '../../admin/content/pages/products/produit.service';
+import { CartService } from '../../services/cart.service';
 
 interface Product {
   id: number;
@@ -13,42 +15,55 @@ interface Product {
 
 @Component({
   selector: 'app-product-listing',
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule,FormsModule,RouterModule],
   templateUrl: './product-listing.component.html',
   styleUrls: ['./product-listing.component.scss']
 })
 export class ProductListingComponent implements OnInit {
-  products: Product[] = [
-    {
-      id: 1,
-      name: 'Product 1',
-      price: 49.99,
-      imageUrl: 'assets/images/product1.jpg',
-      category: 'Electronics'
-    },
-    {
-      id: 2,
-      name: 'Product 2',
-      price: 29.99,
-      imageUrl: 'assets/images/product2.jpg',
-      category: 'Clothing'
-    },
-    {
-      id: 3,
-      name: 'Product 3',
-      price: 39.99,
-      imageUrl: 'assets/images/product3.jpg',
-      category: 'Electronics'
-    }
-  ];
+    categoryId: any;
+
+
+  products:any
   
-  constructor(private router: Router) {}
+  constructor(private router: Router,private route:ActivatedRoute,private productService:ProduitService,private cartService:CartService) {}
   
   ngOnInit(): void {
-    // Initialize component
+  this.categoryId = this.route.snapshot.paramMap.get('id');
+ if (this.categoryId) {
+      this.getByCategory();
+    } else{
+     this.getAll()
+    }
+  
   }
   
   viewProductDetails(productId: number): void {
     this.router.navigate(['/products', productId]);
+  }
+
+  getByCategory(){
+return this.productService.getProduitByCategory(this.categoryId).subscribe({
+  next:(res)=>{console.log(res);
+    this.products=res
+  },
+error:(err)=>{console.log(err);
+}
+})
+  }
+
+  getAll(){
+    return this.productService.getProduits().subscribe({
+  next:(res)=>{console.log(res);
+    this.products=res
+  },
+error:(err)=>{console.log(err);
+}
+})
+  }
+addToCart(product:any){
+  this.cartService.addToCart(product)
+}
+  count(){
+    return this.cartService.getCartItemCount()
   }
 }

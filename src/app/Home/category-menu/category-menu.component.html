@@ -1,41 +1,276 @@
-<div class="category-menu-container">
-  <div class="categories-wrapper">
-    <div 
-      *ngFor="let category of categories" 
-      class="category-item"
-      (mouseenter)="onMouseEnter(category)" 
-      (mouseleave)="onMouseLeave(category)"
-      (click)="onCategoryClick(category)"
-    >
-      <a href="#" class="category-name">{{ category.name }}</a>
-    </div>
-  </div>
+<style>
+  
+  .icon-button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #64748b;
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: background-color 0.2s;
+    }
 
-  <ng-container *ngFor="let category of categories">
-    <div 
-      class="subcategories-container" 
-      *ngIf="category.isHovered"
-      (mouseenter)="onMouseEnter(category)" 
-      (mouseleave)="onMouseLeave(category)"
-    >
-      <div class="subcategory-columns">
-        <div class="subcategory-column" *ngFor="let group of category.subCategoryGroups">
-          <h4 class="subcategory-group-title">
-            <a href="#" class="group-link">{{ group.name }}</a>
-          </h4>
-          <ul class="subcategory-list">
-            <li *ngFor="let chunk of group.items">
-              <ul class="subcategory-chunk">
-                <li *ngFor="let item of chunk" class="subcategory-item">
-                  <a href="#" (click)="navigateToItem($event, item)">
-                    {{ item }}
-                  </a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
+    .icon-button:hover {
+      background-color: #f1f5f9;
+      color: #2563eb;
+    }
+
+    /* Category menu styles */
+    .category-nav {
+      background-color: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
+      position: relative;
+      z-index: 999;
+    }
+
+    .category-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .category-menu {
+      display: flex;
+      list-style: none;
+      position: relative;
+    }
+
+    /* Level 1 - Main horizontal categories */
+    .category-item {
+      position: relative;
+    }
+
+    .category-link {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1.25rem;
+      color: #334155;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9375rem;
+      transition: color 0.2s, background-color 0.2s;
+      white-space: nowrap;
+    }
+
+    .category-link:hover {
+      color: #2563eb;
+      background-color: #f1f5f9;
+    }
+
+    .category-icon {
+      margin-right: 0.5rem;
+      color: #64748b;
+    }
+
+    /* Dropdown arrow */
+    .has-children > .category-link::after {
+      content: "▾";
+      margin-left: 0.5rem;
+      font-size: 0.75rem;
+      transition: transform 0.2s;
+    }
+
+    .has-children:hover > .category-link::after {
+      transform: rotate(180deg);
+    }
+
+    /* Level 2 - First dropdown */
+    .submenu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #fff;
+      min-width: 220px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-radius: 0 0 4px 4px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+      z-index: 100;
+      padding: 0.5rem 0;
+    }
+
+    .category-item:hover > .submenu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    /* Level 2+ items */
+    .submenu .category-link {
+      padding: 0.625rem 1.25rem;
+    }
+
+    .submenu .category-item {
+      position: relative;
+    }
+
+    /* Level 3+ - Nested dropdowns */
+    .submenu .has-children > .category-link::after {
+      content: "▸";
+      position: absolute;
+      right: 1rem;
+    }
+
+    .submenu .has-children:hover > .category-link::after {
+      transform: rotate(90deg);
+    }
+
+    .submenu .submenu {
+      top: 0;
+      left: 100%;
+      border-radius: 0 4px 4px 0;
+    }
+
+    /* Mega menu for larger dropdowns */
+    .mega-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background-color: #fff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-radius: 0 0 4px 4px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+      z-index: 100;
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .category-item:hover > .mega-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .mega-column {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mega-title {
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .mega-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .mega-link {
+      color: #475569;
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.2s;
+      display: block;
+      padding: 0.25rem 0;
+    }
+
+    .mega-link:hover {
+      color: #2563eb;
+    }
+
+    /* Featured section in mega menu */
+    .featured {
+      grid-column: span 4;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .featured-title {
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 0.75rem;
+    }
+
+    .featured-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+
+    .featured-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .featured-image {
+      aspect-ratio: 16/9;
+      background-color: #f1f5f9;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .featured-name {
+      font-weight: 500;
+      font-size: 0.875rem;
+      color: #334155;
+    }
+
+    /* Main content area */
+    .main-content {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 1024px) {
+      .mega-menu {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      
+      .featured-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      
+      .featured {
+        grid-column: span 3;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .mega-menu {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .featured-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .featured {
+        grid-column: span 2;
+      }
+    }
+</style>
+<div class="category-menu-container">
+ 
+ 
+  <!-- Category Navigation -->
+  <nav class="category-nav">
+    <div class="category-container">
+      <ul class="category-menu">
+        <ng-container *ngFor="let category of topLevelCategories">
+          <app-category-item  [category]="category"></app-category-item>
+        </ng-container>
+      </ul>
     </div>
-  </ng-container>
-</div>
+  </nav>

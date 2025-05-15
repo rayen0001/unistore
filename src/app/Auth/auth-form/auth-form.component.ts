@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { AuthService } from '../../services/auth.service';
 import { ForgotPasswordModalComponent } from '../forgot-password-modal/forgot-password-modal.component';
 import { ReverifcationModalComponent } from '../reverifcation-modal/reverifcation-modal.component';
 import { Router } from '@angular/router';
-
+import { WebSocketService } from '../../services/web-socket.service';
+import { SnackbarService } from '../../services/snackbar.service';
 @Component({
   selector: 'app-auth-form',
   standalone: true,
@@ -26,8 +27,9 @@ export class AuthFormComponent {
   constructor(
     private router: Router, 
     private fb: FormBuilder,
-
-
+    private authService: AuthService,
+    private snackbarService: SnackbarService,
+    private webSocketService: WebSocketService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -35,7 +37,7 @@ export class AuthFormComponent {
     });
 
     this.signupForm = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(3)]],
+      name: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required]]
@@ -51,6 +53,7 @@ export class AuthFormComponent {
   }
 
   onLogin() {
+    
     if (this.loginForm.valid) {
       this.loading = true;
       this.errorMessage = '';
@@ -60,35 +63,32 @@ export class AuthFormComponent {
         password: this.loginForm.value.password
       };
 
-      // this.authService.login(credentials).subscribe({
-      //   next: (response) => {
-      //     console.log('Login successful:', response);
-      //     localStorage.setItem('token', response.token);
-      //     const decoded: any = jwtDecode(response.token);
-      //     const userid = decoded.userId; // Retrieve from local storage or auth service
-      //     this.webSocketService.connect(userid);
+      this.authService.login(credentials).subscribe({
+        next: (response) => {
+          console.log('Login successful:', response);
+          // Handle successful login (e.g., store token, redirect)
+          localStorage.setItem('token', response.access_token);
+          localStorage.setItem('email', response.email);
+          localStorage.setItem('role', response.role);
+          localStorage.setItem('username', response.username);
+          //const userToken = response.token; // Retrieve from local storage or auth service
+         // this.webSocketService.connect(userToken);
       
-      //     this.webSocketService.getMessages().subscribe((message) => {
-      //     console.log('New message received:', message);
-      //     });
-      //     this.router.navigate(['/set-up']);
-      //   },
-      //   error: (error) => {
-      //     console.error('Login failed:', error);
-      //     this.errorMessage = error.error.message || 'Login failed. Please try again.';
-      //     if (error.status == 403) {
-      //       this.snackbarService.warning('You are not Verfied please verify your account first')
-      //     }
-      //     if (error.status == 400) {
-      //       this.snackbarService.warning('Invalid credentials please verify your Email or Password')
-      //     }
-      //     this.loading = false;
-      //   },
-      //   complete: () => {
-      //     this.loading = false;
-      //   }
-      // });
+          //this.webSocketService.getMessages().subscribe((message) => {
+          //console.log('New message received:', message);
+         // });
+          this.router.navigate(['/']);
+        },
+        error: (error) => {
+        this.snackbarService.error(error.error.message)
+          this.loading = false;
+        },
+        complete: () => {
+          this.loading = false;
+        }
+      });
     }
+    else{this.snackbarService.warning("Form is not valid")}
   }
 
   onSignup() {
@@ -105,29 +105,34 @@ export class AuthFormComponent {
       this.errorMessage = '';
 
       const userData = {
-        username: this.signupForm.value.username,
+       name: this.signupForm.value.name,
         email: this.signupForm.value.email,
         password: this.signupForm.value.password
       };
 
-      // this.authService.register(userData).subscribe({
-      //   next: (response) => {
-      //     console.log('Registration successful:', response);
-      //     if (response.token) {
-      //       localStorage.setItem('regtoken', response.token);
-      //     }
-      //     this.isSignUpMode = false;
-      //   },
-      //   error: (error) => {
-      //     console.error('Registration failed:', error);
-      //     this.errorMessage = error.error.message || 'Registration failed. Please try again.';
-      //     this.loading = false;
-      //   },
-      //   complete: () => {
-      //     this.loading = false;
-      //     this.router.navigate(['/unverified']);
-      //   }
-      // });
+      console.log(this.signupForm);
+      
+      this.authService.register(userData).subscribe({
+        next: (response) => {
+          console.log('Registration successful:', response);
+          // Handle successful registration
+          if (response.token) {
+            localStorage.setItem('regtoken', response.token);
+
+          }
+          // Optional: switch to login mode
+          this.isSignUpMode = false;
+        },
+        error: (error) => {
+          console.error('Registration failed:', error);
+          this.errorMessage = error.error.message || 'Registration failed. Please try again.';
+          this.loading = false;
+        },
+        complete: () => {
+          this.loading = false;
+          this.router.navigate(['/unverified']);
+        }
+      });
     }
   }
   togglePasswordVisibility() {

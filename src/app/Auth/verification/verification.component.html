@@ -1,44 +1,70 @@
 <div class="verification-container">
-    <h2>{{ verificationMessage }}</h2>
-  
-    <form *ngIf="!isVerified" [formGroup]="verificationForm" (ngSubmit)="onSubmit()">
-      <input type="hidden" formControlName="token" />
-  
-      <!-- First Name -->
-      <div>
-        <input type="text" formControlName="firstname" placeholder="First Name" required />
-        <div *ngIf="verificationForm.get('firstname')?.invalid && verificationForm.get('firstname')?.touched" class="error-message">
-          Full Name is required.
-        </div>
-      </div>
+  <h2>{{ verificationMessage }}</h2>
 
-      <!-- Last Name -->
-      <div>
-        <input type="text" formControlName="lastname" placeholder="Last Name" required />
-        <div *ngIf="verificationForm.get('lastname')?.invalid && verificationForm.get('lastname')?.touched" class="error-message">
-          Full Name is required.
-        </div>
-      </div>
+  <form *ngIf="!isVerified" [formGroup]="verificationForm" (ngSubmit)="onSubmit()">
+    <input type="hidden" formControlName="token" />
 
-      <!-- Phone -->
-      <div>
-        <input type="text" formControlName="phone" placeholder="Phone" required />
-        <div *ngIf="verificationForm.get('phone')?.invalid && verificationForm.get('phone')?.touched" class="error-message">
-          Phone is required.
-        </div>
+    <!-- Full Name -->
+    <div>
+      <input type="text" formControlName="fullName" placeholder="Full Name" required />
+      <div *ngIf="verificationForm.get('fullName')?.invalid && verificationForm.get('fullName')?.touched" class="error-message">
+        Full Name is required.
       </div>
-  
-      <!-- Address -->
-      <div>
-        <input type="text" formControlName="address" placeholder="Address" required />
-        <div *ngIf="verificationForm.get('address')?.invalid && verificationForm.get('address')?.touched" class="error-message">
-          Address is required.
-        </div>
-      </div>
-  
+    </div>
 
-  
-      <!-- Submit Button -->
-      <button type="submit" [disabled]="verificationForm.invalid">Verify & Submit</button>
-    </form>
-  </div>
+    <!-- Phone -->
+    <div>
+      <input type="text" formControlName="phone" placeholder="Phone" required />
+      <div *ngIf="verificationForm.get('phone')?.invalid && verificationForm.get('phone')?.touched" class="error-message">
+        Phone is required.
+      </div>
+    </div>
+
+    <!-- Address -->
+    <div>
+      <input type="text" formControlName="address" placeholder="Address" required />
+      <div *ngIf="verificationForm.get('address')?.invalid && verificationForm.get('address')?.touched" class="error-message">
+        Address is required.
+      </div>
+    </div>
+
+    <!-- Date of Birth -->
+    <div>
+      <input type="date" formControlName="dob" required />
+      <div *ngIf="verificationForm.get('dob')?.invalid && verificationForm.get('dob')?.touched" class="error-message">
+        Date of Birth is required.
+      </div>
+    </div>
+
+    <!-- Gender -->
+    <div>
+      <select formControlName="gender">
+        <option value="">Select Gender</option>
+        <option value="MALE">Male</option>
+        <option value="FEMALE">Female</option>
+      </select>
+      <div *ngIf="verificationForm.get('gender')?.invalid && verificationForm.get('gender')?.touched" class="error-message">
+        Gender is required.
+      </div>
+    </div>
+
+    <!-- Language -->
+    <div>
+      <input type="text" formControlName="language" placeholder="Language" required />
+      <div *ngIf="verificationForm.get('language')?.invalid && verificationForm.get('language')?.touched" class="error-message">
+        Language is required.
+      </div>
+    </div>
+
+    <!-- Bio -->
+    <div>
+      <textarea formControlName="bio" placeholder="Short Bio"></textarea>
+      <div *ngIf="verificationForm.get('bio')?.invalid && verificationForm.get('bio')?.touched" class="error-message">
+        Bio is required.
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" [disabled]="verificationForm.invalid">Verify & Submit</button>
+  </form>
+</div>

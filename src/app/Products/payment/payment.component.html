@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Payment</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="checkout-container">
+        <!-- Header -->
+        <header class="checkout-header">
+            <div class="logo">
+                <h1>Learning Platform</h1>
+            </div>
+            <div class="checkout-steps">
+                <div class="step completed">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Cart</div>
+                </div>
+                <div class="step-connector completed"></div>
+                <div class="step active">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Payment</div>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Confirmation</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main content -->
+        <main class="checkout-content">
+            <!-- Left column - Payment form -->
+            <div class="payment-section">
+                <h2>Payment Details</h2>
+                
+                <!-- Payment methods -->
+                <div class="payment-methods">
+                    <h3>Payment Method</h3>
+                    <div class="payment-options">
+                        <label class="payment-option active">
+                            <input type="radio" name="payment-method" value="credit-card" checked>
+                            <span class="radio-custom"></span>
+                            <span class="payment-icon"><i class="fas fa-credit-card"></i></span>
+                            <span class="payment-label">Credit Card</span>
+                        </label>
+                        
+                        <label class="payment-option">
+                            <input type="radio" name="payment-method" value="paypal">
+                            <span class="radio-custom"></span>
+                            <span class="payment-icon"><i class="fab fa-paypal"></i></span>
+                            <span class="payment-label">PayPal</span>
+                        </label>
+                        
+                        <label class="payment-option">
+                            <input type="radio" name="payment-method" value="apple-pay">
+                            <span class="radio-custom"></span>
+                            <span class="payment-icon"><i class="fab fa-apple-pay"></i></span>
+                            <span class="payment-label">Apple Pay</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Credit card form -->
+                <div class="payment-form" id="credit-card-form">
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="card-name">Cardholder Name</label>
+                            <input type="text" id="card-name" placeholder="Name as it appears on card">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="card-number">Card Number</label>
+                            <div class="card-input-container">
+                                <input type="text" id="card-number" placeholder="1234 5678 9012 3456">
+                                <div class="card-icons">
+                                    <i class="fab fa-cc-visa"></i>
+                                    <i class="fab fa-cc-mastercard"></i>
+                                    <i class="fab fa-cc-amex"></i>
+                                    <i class="fab fa-cc-discover"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group half-width">
+                            <label for="expiry-date">Expiry Date</label>
+                            <input type="text" id="expiry-date" placeholder="MM/YY">
+                        </div>
+                        <div class="form-group half-width">
+                            <label for="cvv">CVV</label>
+                            <div class="cvv-container">
+                                <input type="text" id="cvv" placeholder="123">
+                                <span class="cvv-tooltip" title="3-digit security code on the back of your card">
+                                    <i class="fas fa-question-circle"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Billing address -->
+                <div class="billing-address">
+                    <h3>Billing Address</h3> 
+                    
+                    <div class="form-row">
+                        <div class="form-group half-width">
+                            <label for="first-name">First Name</label>
+                            <input type="text" id="first-name">
+                        </div>
+                        <div class="form-group half-width">
+                            <label for="last-name">Last Name</label>
+                            <input type="text" id="last-name">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="address">Address</label>
+                            <input type="text" id="address">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="address2">Address Line 2 (Optional)</label>
+                            <input type="text" id="address2">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group third-width">
+                            <label for="city">City</label>
+                            <input type="text" id="city">
+                        </div>
+                        <div class="form-group third-width">
+                            <label for="state">State/Province</label>
+                            <select id="state">
+                                <option value="">Select...</option>
+                                <option value="AL">Alabama</option>
+                                <option value="AK">Alaska</option>
+                                <option value="AZ">Arizona</option>
+                                <!-- More states would be listed here -->
+                            </select>
+                        </div>
+                        <div class="form-group third-width">
+                            <label for="zip">Zip/Postal Code</label>
+                            <input type="text" id="zip">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="country">Country</label>
+                            <select id="country">
+                                <option value="US">United States</option>
+                                <option value="CA">Canada</option>
+                                <option value="UK">United Kingdom</option>
+                                <!-- More countries would be listed here -->
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="save-info">
+                                <span class="checkbox-custom"></span>
+                                <span>Save this information for next time</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right column - Order summary -->
+            <div class="order-summary-section">
+                <div class="order-summary-container">
+                    <h2>Order Summary</h2>
+                    
+                    <div class="order-items" *ngFor="let item of cartItems">
+                        <div class="order-item" >
+                            <div class="item-image">
+                                <img [src]="item.images[0].image_url" alt="JavaScript Fundamentals">
+                            </div>
+                            <div class="item-details">
+                                <h4>{{item.name}}</h4>
+                                <p class="item-type">{{item.category.label}}</p>
+                                <p class="item-access">requested: {{item.quantity}}</p>
+                            </div>
+                            <div class="item-price">${{item.Prix}}</div>
+                        </div>
+                        
+                       
+                    </div>
+                    
+                    <div class="coupon-code">
+                        <input type="text" placeholder="Promo Code">
+                        <button class="apply-btn">Apply</button>
+                    </div>
+                    
+                    <div class="order-totals">
+                        <div class="total-row">
+                            <span>Subtotal</span>
+                            <span>$109.98</span>
+                        </div>
+                        <div class="total-row">
+                            <span>Discount</span>
+                            <span>-$10.00</span>
+                        </div>
+                        <div class="total-row">
+                            <span>Tax</span>
+                            <span>$8.00</span>
+                        </div>
+                        <div class="total-row grand-total">
+                            <span>Total</span>
+                            <span>${{total}}</span>
+                        </div>
+                    </div>
+                    
+                    <button class="checkout-btn">
+                        Complete Payment
+                    </button>
+                    
+                    <div class="secure-checkout">
+                        <i class="fas fa-lock"></i> Secure Checkout
+                    </div>
+                    
+                    <div class="payment-icons">
+                        <i class="fab fa-cc-visa"></i>
+                        <i class="fab fa-cc-mastercard"></i>
+                        <i class="fab fa-cc-amex"></i>
+                        <i class="fab fa-cc-discover"></i>
+                        <i class="fab fa-cc-paypal"></i>
+                        <i class="fab fa-cc-apple-pay"></i>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="checkout-footer">
+            <div class="footer-links">
+                <a href="#">Terms & Conditions</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Help & Support</a>
+            </div>
+            <div class="copyright">
+                &copy; 2023 Learning Platform. All rights reserved.
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+
+    </script>
+</body>
+</html>

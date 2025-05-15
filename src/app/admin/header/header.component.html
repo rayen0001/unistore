@@ -1,0 +1,15 @@
+<header class="header">
+    <div class="header-left">
+      <h1 class="header-title">Admin Panel</h1>
+    </div>
+    <div class="header-right">
+      <div class="search-bar">
+        <input type="text" placeholder="Search..." />
+        <button><i class="fas fa-search"></i></button>
+      </div>
+      <div class="user-profile">
+        <span class="username">{{username}}</span>
+        <i class="bi bi-box-arrow-right" role="button" tabindex="0" (click)="logout()"></i>
+      </div>
+    </div>
+  </header>
