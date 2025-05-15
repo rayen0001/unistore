@@ -1,0 +1,113 @@
+
+/* Container for the form */
+.form-container {
+    display: flex;
+    border-radius: 0%;
+    flex-direction: column;
+    gap: 20px; /* Increased gap for better spacing */
+    padding: 20px; /* Add padding for better visual appeal */
+    background-color: #f9f9f9; /* Light background for the form */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+
+  }
+  .form {
+    padding: 24px; /* Add more padding */
+    border-radius: 0px; /* Rounder corners */
+    background-color: #ffffff; /* White background */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+width: 30px;
+  }
+  /* Grid layout for the form fields */
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Three columns */
+    gap: 20px; /* Increased gap for better spacing */
+  }
+  
+  /* Style for each form field */
+  .form-field {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Spacing between label and input */
+  }
+  
+  /* Style for Angular Material form fields */
+  .mat-form-field {
+    width: 100%;
+  }
+  
+  /* File upload styling */
+  .file-upload {
+    grid-column: span 3; /* Make the file input span all three columns */
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Spacing between label and input */
+  }
+  
+  .file-upload input {
+    margin-top: 8px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    font-size: 14px;
+  }
+  
+  /* Button container */
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px; /* Increased gap between buttons */
+    margin-top: 20px; /* More spacing above buttons */
+  }
+  
+  /* Style for buttons */
+  .mat-raised-button {
+    padding: 8px 20px; /* Better padding for buttons */
+    font-size: 14px;
+    border-radius: 4px; /* Rounded corners for buttons */
+    text-transform: uppercase; /* Uppercase text for buttons */
+    font-weight: 500; /* Slightly bolder text */
+  }
+  
+  /* Primary button style */
+  .mat-raised-button[color="primary"] {
+    background-color: #3f51b5; /* Primary color */
+    color: white;
+  }
+  
+  /* Cancel button style */
+  .mat-raised-button:not([color="primary"]) {
+    background-color: #f5f5f5; /* Light background for cancel button */
+    color: #333; /* Dark text for contrast */
+    border: 1px solid #ccc; /* Border for cancel button */
+  }
+  
+  /* Hover effects for buttons */
+  .mat-raised-button:hover {
+    opacity: 0.9; /* Slight transparency on hover */
+    transition: opacity 0.2s ease; /* Smooth transition */
+  }
+  
+  /* Focus effects for inputs */
+  .mat-input-element:focus {
+    border-color: #3f51b5; /* Highlight input border on focus */
+    outline: none; /* Remove default outline */
+  }
+  
+  /* Error styling for invalid fields */
+  .mat-form-field-invalid .mat-input-element {
+    border-color: #f44336; /* Red border for invalid fields */
+  }
+  
+  /* Snackbar styling (optional) */
+  .mat-snack-bar-container {
+    background-color: #4caf50; /* Green background for success messages */
+    color: white;
+  }
+  
+  .mat-snack-bar-container.error {
+    background-color: #f44336; /* Red background for error messages */
+  }

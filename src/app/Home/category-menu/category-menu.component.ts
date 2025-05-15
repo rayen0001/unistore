@@ -1,13 +1,40 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { CategoryService } from '../../admin/content/pages/categories/category.service';
+import { CategoryItemComponent } from "../../category-item/category-item.component";
+import { Router, RouterModule } from '@angular/router';
+interface CategoryNode {
+  id: number;
+  label: string;
+  parent?: CategoryNode | null;
+  children?: CategoryNode[];
+}
+
+interface FormattedCategory {
+  name: string;
+  isHovered: boolean;
+  subCategoryGroups: {
+    name: string;
+    items: string[];
+  }[];
+}
 
 @Component({
   selector: 'app-category-menu',
-  imports: [CommonModule],
+  imports: [CommonModule, CategoryItemComponent,RouterModule],
   templateUrl: './category-menu.component.html',
   styleUrl: './category-menu.component.scss'
 })
+
 export class CategoryMenuComponent implements OnInit {
+  topLevelCategories: CategoryNode[]=[];
+  
+  constructor(
+    private categoryService: CategoryService,
+    private router:Router
+    
+  ) {}
+
   categories = [
     {
       name: 'Informatique', 
@@ -28,36 +55,8 @@ export class CategoryMenuComponent implements OnInit {
             'Claviers'
           ]
         },
-        {
-          name: 'Ordinateurs de Bureau',
-          items: [
-            'Pc de bureau', 
-            'Pc de Bureau Gamer', 
-            'Pc Tout en un', 
-            'Workstations', 
-            'Serveur de Bureau',
-            'Full Setup Gamer', 
-            'Ecran 4K', 
-            'Claviers et Souris',
-            'Stations de travail',
-            'Composants supplémentaires'
-          ]
-        },
-        {
-          name: 'Composants et Périphériques',
-          items: [
-            'Processeur', 
-            'Barrette mémoire', 
-            'Carte mère', 
-            'Carte graphique', 
-            'Disque dur Interne',
-            'Disque SSD', 
-            'Ventilateur & Refroidisseur', 
-            'Alimentation', 
-            'Moniteurs', 
-            'Webcams'
-          ]
-        },
+       
+       
         {
           name: 'Logiciels',
           items: [
@@ -90,115 +89,19 @@ export class CategoryMenuComponent implements OnInit {
         }
       ]
     },
-    {
-      name: 'Téléphonie et Mobilité', 
-      isHovered: false,
-      subCategoryGroups: [
-        {
-          name: 'Smartphones et Tablettes',
-          items: [
-            'Smartphones Android', 
-            'iPhone', 
-            'Tablettes Android', 
-            'Tablettes iOS', 
-            'Accessoires Téléphonie', 
-            'Coques et Étuis', 
-            'Chargeurs', 
-            'Écouteurs Bluetooth', 
-            'Support de téléphone', 
-            'Montres Connectées'
-          ]
-        },
-        {
-          name: 'Accessoires Mobilité',
-          items: [
-            'Casques et Écouteurs', 
-            'Chargeurs et Batteries', 
-            'Support voiture', 
-            'Câbles USB', 
-            'Station d\'accueil', 
-            'Station de Charge', 
-            'Clé USB', 
-            'Adaptateurs', 
-            'Pochettes et Étuis', 
-            'Tapis de souris'
-          ]
-        },
-        {
-          name: 'Réseau Mobile et Internet',
-          items: [
-            'Modems 4G', 
-            'Routeurs WiFi', 
-            'Amplificateur de Signal', 
-            'Clé 3G/4G', 
-            'Accès WiFi', 
-            'Amplificateurs d\'antenne', 
-            'VPN et Sécurité', 
-            'Réseaux Privés', 
-            'Hotspot WiFi', 
-            'Dispositifs IoT'
-          ]
-        }
-      ]
-    },
-    {
-      name: 'Maison et Domotique', 
-      isHovered: false,
-      subCategoryGroups: [
-        {
-          name: 'Équipements Connectés',
-          items: [
-            'Ampoules LED Connectées', 
-            'Thermostats Intelligents', 
-            'Caméras de Surveillance', 
-            'Prises Connectées', 
-            'Serrures Connectées', 
-            'Assistants Vocaux', 
-            'Interphones Vidéo', 
-            'Stations Météo Connectées', 
-            'Détecteurs de Mouvement', 
-            'Télécommandes Universelles'
-          ]
-        },
-        {
-          name: 'Électroménager',
-          items: [
-            'Réfrigérateurs', 
-            'Lave-linge', 
-            'Sèche-linge', 
-            'Lave-vaisselle', 
-            'Fours et Micro-ondes', 
-            'Cuisinières et Plaques', 
-            'Aspirateurs', 
-            'Climatisation', 
-            'Cafetière', 
-            'Grille-pain'
-          ]
-        },
-        {
-          name: 'Sécurité à Domicile',
-          items: [
-            'Alarmes', 
-            'Caméras de sécurité', 
-            'Serrures de Porte', 
-            'Cadenas', 
-            'Interphones', 
-            'Systèmes de Surveillance', 
-            'Capteurs de Mouvement', 
-            'Détecteurs de Fumée', 
-            'Détecteurs de Gaz', 
-            'Vidéosurveillance'
-          ]
-        }
-      ]
-    }
+   
+        
+  
+      
+    
   ];
   
 
 
-  constructor() { }
 
   ngOnInit(): void {
+    this.fetchCategories();
+
     // Detect if the screen is mobile-sized
     this.isMobile = window.innerWidth <= 768;
   
@@ -208,11 +111,7 @@ export class CategoryMenuComponent implements OnInit {
     });
   
     // Process categories and split items into chunks
-    this.categories.forEach(category => {
-      category.subCategoryGroups.forEach(group => {
-        group.items = this.splitIntoChunks(group.items, 10);
-      });
-    });
+   
   }
   
 
@@ -265,5 +164,46 @@ navigateToItem(event: Event, item: string): void {
   console.log('Navigating to item:', item);
   // your logic here
 }
+
+
+
+
+fetchCategories() {
+  this.categoryService.getCategories().subscribe({
+   next: (data) => {
+    
+    this.transformCategories(data)
+    console.log(this.topLevelCategories);
+    
+    },
+   error: (error) => {
+      console.error('Error fetching categories:', error);
+    }}
+  );
+}
+
+transformCategories(raw: any[]) {
+  // Build a map of all categories by ID
+  const categoryMap = new Map<number, any>();
+  raw.forEach(cat => {
+    categoryMap.set(cat.id, { ...cat, children: [] });
+  });
+
+  // Recursively attach children
+  raw.forEach(cat => {
+    if (cat.parent && categoryMap.has(cat.parent.id)) {
+      const parent = categoryMap.get(cat.parent.id);
+      parent.children.push(categoryMap.get(cat.id));
+    }
+  });
+
+  // Return only top-level categories
+  this.topLevelCategories = Array.from(categoryMap.values()).filter(cat => !cat.parent);
+}
+
+productDetail(event:any){
+    this.router.navigate(["/product/"+event.target.id])
+  }
+
 
 }

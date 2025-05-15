@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -22,9 +22,9 @@ export class ResetPasswordComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute, // To access query parameters
-
+    private authService: AuthService, // Service for API calls
     private router: Router, // For navigation
-
+    private snackbarService: SnackbarService
   ) {}
 
   ngOnInit(): void {
@@ -54,6 +54,8 @@ export class ResetPasswordComponent implements OnInit {
    */
   onSubmit(): void {
     // Reset error message
+    console.log(this.token);
+    
     this.errorMessage = '';
 
     // Validate form fields
@@ -67,17 +69,17 @@ export class ResetPasswordComponent implements OnInit {
     }
     console.log(this.password)
     // Call the API to update the password
-    // this.authService.updatePassword({ token: this.token, password: this.password }).subscribe(
-    //   () => {
-    //     // On success, show a success message and redirect to login
-    //     this.snackbarService.success('Password reset successful! Please log in.');
-    //     this.router.navigate(['/auth']);
-    //   },
-    //   (error) => {
-    //     // On error, display an error message
-    //     this.errorMessage = 'Failed to reset password. Please try again.';
-    //     console.error('Error:', error);
-    //   }
-    // );
+    this.authService.updatePassword({ token: this.token, password: this.password }).subscribe(
+      () => {
+        // On success, show a success message and redirect to login
+        this.snackbarService.success('Password reset successful! Please log in.');
+        this.router.navigate(['/auth']);
+      },
+      (error) => {
+        // On error, display an error message
+        this.errorMessage = 'Failed to reset password. Please try again.';
+        console.error('Error:', error);
+      }
+    );
   }
 }

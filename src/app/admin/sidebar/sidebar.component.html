@@ -1,0 +1,44 @@
+<aside class="sidebar" [class.collapsed]="isCollapsed">
+  <div class="sidebar-header">
+    <button class="toggle-btn" (click)="toggleSidebar()">
+      <i class="bi" [class.bi-chevron-right]="isCollapsed"   [class.bi-chevron-left]="!isCollapsed"></i>
+    </button>
+  </div>
+  <nav class="sidebar-nav">
+    <ul>
+      <li>
+        <a
+          routerLink="bi-dashboard"
+          routerLinkActive="active"
+          class="nav-link"
+          (click)="onLinkClick('BI Dashboard')"
+        >
+          <i class="bi bi-file-earmark-bar-graph"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a
+          routerLink="categories"
+          routerLinkActive="active"
+          class="nav-link"
+          (click)="onLinkClick('Categories')"
+        >
+          <i class="fas fa-list"></i>
+          <span>Categories</span>
+        </a>
+      </li>
+      <li>
+        <a
+          routerLink="products"
+          routerLinkActive="active"
+          class="nav-link"
+          (click)="onLinkClick('Products')"
+        >
+          <i class="fas fa-box"></i>
+          <span>Products</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</aside>

@@ -3,16 +3,16 @@
   
     <div class="cart-item" *ngFor="let item of items">
       <div class="item-info">
-        <img [src]="item.image" alt="Item" />
+        <img *ngIf="item.images[0]" [src]="item.images[0].image_url" alt="Item" />
         <div class="details">
           <div class="title">{{ item.name }}</div>
-          <div class="price">${{ item.price }}</div>
+          <div class="price">${{ item.Prix }}</div>
         </div>
       </div>
       <div class="quantity">
         <input type="number" [(ngModel)]="item.quantity" min="1" />
       </div>
-      <button class="remove-btn" (click)="removeItem(item.id)">&times;</button>
+      <button class="remove-btn" (click)="removeItem(item)">&times;</button>
     </div>
   
     <div class="cart-summary">
@@ -20,7 +20,7 @@
       <div class="total">${{ total.toFixed(2) }}</div>
     </div>
   
-    <button class="checkout-btn">Proceed to Checkout</button>
+    <a routerLink="/payment" class="checkout-btn">Proceed to Checkout</a>
   </div>
   
   <div *ngIf="!items.length" class="empty-message">Your cart is empty.</div>

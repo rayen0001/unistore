@@ -2,7 +2,8 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-
+import { AuthService } from '../../services/auth.service';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-verification',
@@ -13,7 +14,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 })
 export class VerificationComponent implements OnInit {
   private route = inject(ActivatedRoute);
-
+  private authService = inject(AuthService);
   private router = inject(Router);
   private fb = inject(FormBuilder);
 
@@ -22,13 +23,16 @@ export class VerificationComponent implements OnInit {
   token: string | null = null;
   isVerified = false;
 
-  constructor() {
+  constructor(private snackbar:SnackbarService) {
     this.verificationForm = this.fb.group({
-      token: ['', Validators.required], 
+      token: ['', Validators.required], // Ensure token is included
       phone: ['', [Validators.required]],
       address: ['', [Validators.required]],
-      lastname: ['', [Validators.required]],
-      firstname: ['', [Validators.required]],
+      fullName: ['', [Validators.required]],
+      dob: ['', [Validators.required]],
+      gender: ['', [Validators.required]],
+      language: ['', [Validators.required]],
+      bio: ['', [Validators.required]]
     });
   }
 
@@ -40,23 +44,26 @@ export class VerificationComponent implements OnInit {
         this.verificationMessage = 'Invalid verification link!';
       } else {
         this.verificationMessage = 'Please fill in your details to complete verification.';
-        this.verificationForm.patchValue({ token: this.token }); 
+        this.verificationForm.patchValue({ token: this.token }); // Inject the token into the form
       }
     });
   }
 
   onSubmit() {
     if (this.verificationForm.valid) {
-      // this.authService.verifyToken(this.verificationForm.value).subscribe({
-      //   next: (response: any) => {
-      //     this.verificationMessage = response.message;
-      //     this.isVerified = true;
-      //     setTimeout(() => this.router.navigate(['/auth']), 3000);
-      //   },
-      //   error: () => {
-      //     this.verificationMessage = 'Verification failed. Please try again.';
-      //   }
-      // });
+      this.authService.verifyToken(this.verificationForm.value).subscribe({
+        next: (response: any) => {
+        
+          this.isVerified = true;
+          this.snackbar.success(response)
+          setTimeout(() => this.router.navigate(['/auth']), 3000);
+        },
+        error: (err) => {
+          console.log(err);
+          
+          this.verificationMessage = 'Verification failed. Please try again.';
+        }
+      });
     }
   }
 }

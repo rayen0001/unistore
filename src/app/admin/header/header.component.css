@@ -1,0 +1,93 @@
+/* Header Container */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #343434;
+    color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Header Left (Title) */
+  .header-left .header-title {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  /* Header Right (Search, Notifications, Profile) */
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  
+  /* Search Bar */
+  .search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #34495e;
+    border-radius: 5px;
+    padding: 0.5rem;
+  }
+  
+  .search-bar input {
+    border: none;
+    background: transparent;
+    color: #fff;
+    outline: none;
+    padding: 0.5rem;
+    width: 200px;
+  }
+  
+  .search-bar button {
+    border: none;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  /* Notifications */
+  .notifications {
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .notifications .fa-bell {
+    font-size: 1.2rem;
+  }
+  
+  .notification-count {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: #e74c3c;
+    color: #fff;
+    border-radius: 50%;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.8rem;
+  }
+  
+  /* User Profile */
+  .user-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+  }
+  
+  .user-profile .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  
+  .user-profile .username {
+    font-weight: 500;
+  }
+  
+  .user-profile .fa-chevron-down {
+    font-size: 0.8rem;
+  }

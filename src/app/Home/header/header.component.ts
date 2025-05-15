@@ -1,5 +1,5 @@
 // header.component.ts
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -10,6 +10,7 @@ import {
   faUser, 
   faSignInAlt 
 } from '@fortawesome/free-solid-svg-icons';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-header',
@@ -23,9 +24,11 @@ import {
     FontAwesomeModule
   ]
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit{
+  
   title = 'UniStore';
-  cartItems = 0;
+    cartItems: number = 0;
+
   
   // FontAwesome icons
   faSearch = faSearch;
@@ -33,7 +36,12 @@ export class HeaderComponent {
   faUser = faUser;
   faSignInAlt = faSignInAlt;
   
-  constructor() { }
+    constructor(private cartService:CartService) { }
+  ngOnInit(): void {
+      this.cartItems = this.cartService.getCartItemCount();
+
+  }
+
   
   onSearch(searchTerm: string): void {
     console.log('Searching for:', searchTerm);

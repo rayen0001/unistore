@@ -7,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrl: './my-account.component.scss'
 })
 export class MyAccountComponent {
-
+username:any=localStorage.getItem("username");
+email:any=localStorage.getItem("email");
 }
